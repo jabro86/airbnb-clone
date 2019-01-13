@@ -1,15 +1,15 @@
-import { Connection } from "typeorm";
-import * as faker from "faker";
-
-import { User } from "../../../entity/User";
 import {
-  duplicateEmail,
   emailNotLongEnough,
   invalidEmail,
   passwordNotLongEnough
-} from "./errorMessages";
-import { TestClient } from "../../../utils/TestClient";
+} from "@abb/common";
+import * as faker from "faker";
+import { Connection } from "typeorm";
+
+import { User } from "../../../entity/User";
 import { createTestConn } from "../../../testUtils/createTestConn";
+import { TestClient } from "../../../utils/TestClient";
+import { duplicateEmail } from "./errorMessages";
 
 faker.seed(Date.now() + 5);
 const email = faker.internet.email();
