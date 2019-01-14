@@ -1,9 +1,15 @@
-import { validUserSchema } from '@abb/common';
-import { Button, Form, Icon } from 'antd';
-import { Field, Form as FormikForm, FormikErrors, FormikProps, withFormik } from 'formik';
-import * as React from 'react';
+import { validUserSchema } from "@abb/common";
+import { Button, Form, Icon } from "antd";
+import {
+  Field,
+  Form as FormikForm,
+  FormikErrors,
+  FormikProps,
+  withFormik
+} from "formik";
+import * as React from "react";
 
-import { InputField } from '../../shared/InputField';
+import { InputField } from "../../shared/InputField";
 
 interface FormValues {
   email: string;
