@@ -1,4 +1,6 @@
+import gql from "graphql-tag";
 import * as React from "react";
+import { ChildMutateProps, graphql } from "react-apollo";
 
 interface Props {
   children: (
@@ -6,9 +8,13 @@ interface Props {
   ) => JSX.Element | null;
 }
 
-class RegisterController extends React.PureComponent<Props> {
+class C extends React.PureComponent<ChildMutateProps<Props, any, any>> {
   submit = async (values: any) => {
     console.log(values);
+    const response = await this.props.mutate({
+      variables: values
+    });
+    console.log("response:", response);
     return null;
   };
 
@@ -16,5 +22,16 @@ class RegisterController extends React.PureComponent<Props> {
     return this.props.children({ submit: this.submit });
   }
 }
+
+const registerMutation = gql`
+  mutation($email: String!, $password: String!) {
+    register(email: $email, password: $password) {
+      path
+      message
+    }
+  }
+`;
+
+const RegisterController = graphql<any>(registerMutation)(C);
 
 export { RegisterController };
