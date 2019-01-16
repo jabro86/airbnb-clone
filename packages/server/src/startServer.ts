@@ -11,6 +11,7 @@ import { redisSessionPrefix } from "./constants";
 import { redis } from "./redis";
 import { confirmEmail } from "./routes/confirmEmail";
 import { createTestConn } from "./testUtils/createTestConn";
+import { FRONTEND_HOST } from "./utils/config";
 import { createTypeormConn } from "./utils/createTypeormConn";
 import { genSchema } from "./utils/genSchema";
 
@@ -63,7 +64,7 @@ export const startServer = async () => {
 
   const cors = {
     credentials: true,
-    origin: "*" // process.env.NODE_ENV === "test" ? "*" : FRONTEND_HOST
+    origin: process.env.NODE_ENV === "test" ? "*" : FRONTEND_HOST
   };
   console.log("cors", cors);
 
