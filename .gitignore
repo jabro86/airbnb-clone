@@ -8,3 +8,4 @@ dump.rdb
 .env
 .env*
 dist
+__generated__

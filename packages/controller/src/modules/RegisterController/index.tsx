@@ -1,16 +1,25 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { ChildMutateProps, graphql } from "react-apollo";
+import { graphql, ChildProps } from "react-apollo";
+import {
+  RegisterMutation,
+  RegisterMutationVariables
+} from "./__generated__/RegisterMutation";
 
 interface Props {
   children: (
-    data: { submit: (values: any) => Promise<null> }
+    data: { submit: (values: RegisterMutationVariables) => Promise<null> }
   ) => JSX.Element | null;
 }
 
-class C extends React.PureComponent<ChildMutateProps<Props, any, any>> {
-  submit = async (values: any) => {
+class C extends React.PureComponent<
+  ChildProps<Props, RegisterMutation, RegisterMutationVariables>
+> {
+  submit = async (values: RegisterMutationVariables) => {
     console.log(values);
+    if (!this.props.mutate) {
+      throw new Error(`Cannot find mutate on RegisterController props`);
+    }
     const response = await this.props.mutate({
       variables: values
     });
@@ -24,7 +33,7 @@ class C extends React.PureComponent<ChildMutateProps<Props, any, any>> {
 }
 
 const registerMutation = gql`
-  mutation($email: String!, $password: String!) {
+  mutation RegisterMutation($email: String!, $password: String!) {
     register(email: $email, password: $password) {
       path
       message
@@ -32,6 +41,10 @@ const registerMutation = gql`
   }
 `;
 
-const RegisterController = graphql<any>(registerMutation)(C);
+const RegisterController = graphql<
+  Props,
+  RegisterMutation,
+  RegisterMutationVariables
+>(registerMutation)(C);
 
 export { RegisterController };
