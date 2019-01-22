@@ -1,3 +1,5 @@
 import * as Redis from "ioredis";
 
-export const redis = new Redis();
+import { REDIS_URL } from "./utils/config";
+
+export const redis = new Redis(REDIS_URL);
